@@ -12,9 +12,9 @@ Download and install vagrant
 * Download the project zip file locally to your computer and unzip in the directory with vagrant
 * CD into the vagrant directory and do "vagrant up" and "vagrant ssh". Then cd /vagrant and cd into the catalog directory
 * Execute the below commands to create and populate a sports catalog DB
-	** python database_setup.py(creates the DB schema and relationships)
-	** python itemscatalogwithusersandtime.py (populates the DB with data)
-	** python application.py (executes the application)
+	* python database_setup.py(creates the DB schema and relationships)
+	* python itemscatalogwithusersandtime.py (populates the DB with data)
+	* python application.py (executes the application)
 * Open the browser with http://localhost:5000/catalog/all - Home Page
 
 
@@ -25,8 +25,8 @@ Download and install vagrant
 * Logging in gives you the ability to create a new item, update an item and delete an item.
 * Click on a category to view the items inside the category, choosing an item on this page shows the description.
 * JSON Endpoints Examples
-	** http://localhost:5000/catalog/all/JSON 
-	** http://localhost:5000/catalog/Soccer/items/JSON
+	* http://localhost:5000/catalog/all/JSON 
+	* http://localhost:5000/catalog/Soccer/items/JSON
 (/catalog/<path:category_name>/items/JSON - to view items by category)
 
 ### MISCELLANEOUS 
