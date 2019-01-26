@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "loggedheader.html" %}
+
+<div class="row"
+  <h2>ADD NEW ITEM</h2>
+</div>
+
+<form method='POST' action={{url_for('addCategoryItem',category_name=category_name)}}
+  <p>Name</p><input name="name" type="text" ><br>
+  <p>Description</p><input name="description" type="text" ><br>
+  <p>Category</p><select name="category">
+                    <option value="Soccer">Soccer</option>
+                    <option value="Basketball">Basketball</option>
+                    <option value="Baseball">Baseball</option>
+                    <option value="Frisbee">Frisbee</option>
+                    <option value="Snowboarding">Snowboarding</option>
+                    <option value="RockClimbing">RockClimbing</option>
+                    <option value="Tennis">Tennis</option>
+                    <option value="Skating">Skating</option>
+                    <option value="Hockey">Hockey</option>
+
+  <input type="submit" value="Create">
+</form>
+
+{% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class="row">
+  <div class="column">
+    <h2>Categories</h2>
+    <ul class="nav category">
+    {% for i in categories %}
+        <li class="#"><a href= '{{url_for('itemsByCategory', category_name=i.name)}}'>{{i.name}}</a></li>
+    {% endfor %}
+   </ul>
+  </div>
+  <div class="column">
+    <h2>Latest Items</h2>
+    <ul class="nav2 category">
+      {% for i in items %}
+        <li class="item">{{i.name}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% include "footer.html" %}
+{% endblock %}

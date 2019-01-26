@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "loggedheader.html" %}
+
+
+ <div class="container">
+   <h2>DELETE ITEM</h2>
+   <h3>Are you sure you want to Delete item {{item.name}}?</h3>
+
+   <form method='POST' action={{url_for('deleteCategoryItem', category_name=category_name, item_name=item.name)}}>
+
+     <input type="submit" value="Delete">
+</div>
+{% include "footer.html" %}
+{% endblock %}

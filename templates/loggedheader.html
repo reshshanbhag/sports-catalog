@@ -1,0 +1,21 @@
+<header id="header">
+      <div class="container-fluid">
+          <h1>Sports Catalog</h1>
+      </div>
+      <div class="col-md-6">
+        <a href="{{url_for('categoriesAll')}}">
+          <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Show All Categories
+        </a>
+      </div>
+      <div class="col-md-6">
+        <a href="{{url_for('itemsByCategory', category_name=category_name)}}">
+          <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Back to Items for {{category_name}}
+        </a>
+      </div>
+      <div class="row top-menu">
+        <div class="col-md-10"></div>
+        <div class="col-md-2 text-right">
+          <a href="{{url_for('gdisconnect')}}">Logout</a>
+        </div>
+      </div>
+</header>

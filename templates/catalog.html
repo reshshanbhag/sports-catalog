@@ -1,0 +1,40 @@
+{% extends "main.html" %}
+{% block content %}
+
+<header id="header">
+      <div class="container-fluid">
+          <h1>Sports Catalog</h1>
+      </div>
+      <div class="col-md-6">
+        <a href="{{url_for('categoriesAll')}}">
+          <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Show All Categories
+        </a>
+      </div>
+      <div class="row top-menu">
+        <div class="col-md-10"></div>
+        <div class="col-md-2 text-right">
+          <a href="{{url_for('gdisconnect')}}">Logout</a>
+        </div>
+      </div>
+</header>
+<div class="row">
+  <div class="column">
+    <h2>Categories</h2>
+    <ul class="nav category">
+    {% for i in categories %}
+        <li class="#"><a href= '{{url_for('itemsByCategory', category_name=i.name)}}'>{{i.name}}</a></li>
+    {% endfor %}
+   </ul>
+  </div>
+
+  <div class="column">
+    <h2>Latest Items</h2>
+    <ul class="nav2 category">
+      {% for i in items %}
+        <li class="item">{{i.name}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% include "footer.html" %}
+{% endblock %}

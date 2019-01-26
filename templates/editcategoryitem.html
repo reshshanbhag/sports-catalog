@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "loggedheader.html" %}
+
+ <div class="container">
+  <h2>EDIT ITEM</h2>
+ <form method='POST' action="{{url_for('editCategoryItem', category_name=category_name, item_name=item.name)}}">
+  <p>Name</p><input name="name" type="text" placeholder = '{{item.name}}' >
+  <p>Description</p><input name="description" type="text" placeholder = '{{item.description}}' >
+  <p>Category</p><select name="category">
+                  <option value="Soccer">Soccer</option>
+                  <option value="Basketball">Basketball</option>
+                  <option value="Baseball">Baseball</option>
+                  <option value="Frisbee">Frisbee</option>
+                  <option value="Snowboarding">Snowboarding</option>
+                  <option value="RockClimbing">RockClimbing</option>
+                  <option value="Tennis">Tennis</option>
+                  <option value="Skating">Skating</option>
+                  <option value="Hockey">Hockey</option>
+                  <option selected value={{category_name}}>{{category_name}}</option>
+                </select>
+  <br><br>
+
+  <input type="submit" value="Edit">
+</form>
+</div>
+{% include "footer.html" %}
+{% endblock %}

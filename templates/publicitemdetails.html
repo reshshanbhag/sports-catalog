@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class = "row">
+  <h1>{{category_name}}</h1>
+</div>
+
+
+<div class="row">
+  <h2>{{itemDetail.name}} </h2>
+</div>
+
+<div class="row">
+  <h3> Description: </h3>
+  <p>{{itemDetail.description}}</p>
+</div>
+
+{% include "footer.html" %}
+{% endblock %}

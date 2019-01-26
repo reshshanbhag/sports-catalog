@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class="row">
+  <div class="column">
+<!--   <div class="md-col-1">-->
+    <h2>Items for {{category.name}}</h2>
+    <ul class="nav category">
+    {% for i in items %}
+        <li class="#"><a href= '{{url_for('displayItem', category_name=category.name, item_name=i.name)}}'>{{i.name}}</a></li>
+    {% endfor %}
+   </ul>
+  </div>
+</div>
+
+{% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "loggedheader.html" %}
+
+<div class = "row">
+  <h1>{{category_name}}</h1>
+</div>
+
+
+<div class="row">
+  <h2>{{itemDetail.name}} </h2>
+</div>
+
+<div class="row">
+  <h3> Description: </h3>
+  <p>{{itemDetail.description}}</p>
+</div>
+
+
+<a href= '{{url_for('editCategoryItem', category_name=category_name, item_name=itemDetail.name)}}'>EDIT</a>
+|  <a href= '{{url_for('deleteCategoryItem', category_name=category_name, item_name=itemDetail.name )}}'>DELETE</a>
+
+
+{% include "footer.html" %}
+{% endblock %}
