@@ -5,7 +5,7 @@
  <div class="container">
   <h2>EDIT ITEM</h2>
  <form method='POST' action="{{url_for('editCategoryItem', category_name=category_name, item_name=item.name)}}">
-  <p>Name</p><input name="name" type="text" placeholder = '{{item.name}}' >
+  <p>Name</p><input name="name" type="text" placeholder = '{{item.name}}' required="required">
   <p>Description</p><input name="description" type="text" placeholder = '{{item.description}}' >
   <p>Category</p><select name="category">
                   <option value="Soccer">Soccer</option>

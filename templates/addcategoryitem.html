@@ -6,8 +6,10 @@
   <h2>ADD NEW ITEM</h2>
 </div>
 
+<div class=row-msg">
+  <h3>{{message}}</h3>
 <form method='POST' action={{url_for('addCategoryItem',category_name=category_name)}}
-  <p>Name</p><input name="name" type="text" ><br>
+  <p>Name</p><input name="name" type="text"  required="required"><br>
   <p>Description</p><input name="description" type="text" ><br>
   <p>Category</p><select name="category">
                     <option value="Soccer">Soccer</option>
@@ -19,7 +21,7 @@
                     <option value="Tennis">Tennis</option>
                     <option value="Skating">Skating</option>
                     <option value="Hockey">Hockey</option>
-
+                    <option selected value={{category_name}}>{{category_name}}</option>
   <input type="submit" value="Create">
 </form>
 
