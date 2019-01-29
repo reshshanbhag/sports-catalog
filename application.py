@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask import flash, jsonify
+from functools import wraps
 
 # import CRUD
 from sqlalchemy import create_engine
@@ -33,6 +34,15 @@ engine = create_engine('sqlite:///itemscatalogwithusersandtime.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in login_session:
+            return redirect('/login')
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 # Create anti-forgery state token
@@ -189,11 +199,8 @@ def getUserInfo(user_id):
 
 
 def getUserId(email):
-    try:
-        user = session.query(User).filter_by(email=email).one()
-        return user.id
-    except:
-        None
+    user = session.query(User).filter_by(email=email).one()
+    return user.id
 
 
 # Making an API Endpoint for all categories(GET Request)
@@ -256,32 +263,46 @@ def displayItem(category_name, item_name):
 
 # Endpoint to add a new item
 @app.route('/catalog/<path:category_name>/new', methods=['GET', 'POST'])
+@login_required
 def addCategoryItem(category_name):
-    if 'username' not in login_session:
-        return redirect('/login')
+    message = "Please Fill Out All Required Fields"
     if (request.method == 'POST'):
         category = session.query(Category).filter_by(
                                     name=request.form['category']).first()
         newItem = CategoryItem(name=request.form['name'],
                                description=request.form['description'],
                                category=category)
-        session.add(newItem)
-        session.commit()
-        items = session.query(CategoryItem).filter_by(category=category)
-        return render_template('catalogitems.html', category=category,
-                               items=items)
+        if newItem.name == "":
+            print("Empty Item Name")
+            message = "Error: Empty Item Name, please fill out all fields"
+            return render_template('addcategoryitem.html',
+                                   category_name=category_name,
+                                   message=message)
+        else:
+            session.add(newItem)
+            session.commit()
+            items = session.query(CategoryItem).filter_by(category=category)
+            return render_template('catalogitems.html',
+                                   category=category,
+                                   items=items)
     else:
         return render_template('addcategoryitem.html',
-                               category_name=category_name)
+                               category_name=category_name, message=message)
 
 
 # Endpoint to edit an item
 @app.route('/catalog/<path:category_name>/<path:item_name>/edit',
            methods=['GET', 'POST'])
+@login_required
 def editCategoryItem(category_name, item_name):
-    if 'username' not in login_session:
-        return redirect('/login')
     editItem = session.query(CategoryItem).filter_by(name=item_name).one()
+    # Get the creator of this item
+    creator = getUserInfo(editItem.user_id)
+
+    # Is the creator the same as the logged in user?
+    if creator.id != login_session['user_id']:
+        return redirect('login')
+
     if request.method == 'POST':
         if request.form['name']:
             editItem.name = request.form['name']
@@ -304,10 +325,16 @@ def editCategoryItem(category_name, item_name):
 # Endpoint to delete an item
 @app.route('/catalog/<path:category_name>/<path:item_name>/delete',
            methods=['GET', 'POST'])
+@login_required
 def deleteCategoryItem(category_name, item_name):
-    if 'username' not in login_session:
-        return redirect('/login')
     item = session.query(CategoryItem).filter_by(name=item_name).one()
+    # Get the creator of this item
+    creator = getUserInfo(editItem.user_id)
+
+    # Is the creator the same as the logged in user?
+    if creator.id != login_session['user_id']:
+        return redirect('login')
+
     if request.method == 'POST':
         session.delete(item)
         session.commit()
